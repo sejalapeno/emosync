@@ -1,5 +1,5 @@
 // app/components/EmotionForm.tsx
-
+"use client";
 import { useState } from "react";
 import { Pie } from "react-chartjs-2";
 import {
