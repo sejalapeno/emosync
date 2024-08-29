@@ -34,3 +34,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# Ignore specific file
+app/api/getRecommendations/route.ts
+app/api/getWeather/route.ts
+app/components/getLocation/page.tsx
+app/components/weatherPlaylist/page.tsx
+app/dashboard/location/page.tsx
