@@ -1,22 +1,15 @@
-// utils/getSpotifyToken.ts
-import { auth, clerkClient } from "@clerk/nextjs/server";
-import { NextApiRequest } from "next";
+// app/api/getSpotifyToken/route.ts
+import { NextResponse } from "next/server";
+import { getSpotifyToken } from "../../utils/getSpotifyToken"; // Adjust the path as necessary
 
-export const getSpotifyToken = async (req: NextApiRequest) => {
-  const { userId } = auth();
-
-  if (!userId) {
-    throw new Error("User not authenticated");
+export async function GET() {
+  try {
+    const accessToken = await getSpotifyToken();
+    return NextResponse.json({ token: accessToken });
+  } catch (error) {
+    return NextResponse.json(
+      { message: (error as Error).message || "Internal Server Error" },
+      { status: 500 }
+    );
   }
-
-  const user = await clerkClient.users.getUser(userId);
-
-  // Ensure the token is stored in a safe place in the user's metadata
-  const accessToken = user.publicMetadata.spotifyAccessToken;
-
-  if (!accessToken) {
-    throw new Error("Spotify access token not found");
-  }
-
-  return accessToken;
-};
+}
